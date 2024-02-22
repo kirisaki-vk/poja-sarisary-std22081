@@ -46,9 +46,11 @@ public class ImageService {
     modifyGraphics.drawImage(originalBuffer, 0, 0, null);
     ImageIO.write(modifiedBuffer, "png", modifiedImage);
     imageRepository.save(
-        new Image(imageId, originalFileKey, modifiedFileKey, Timestamp.from(Instant.now()).toString()));
+        new Image(
+            imageId, originalFileKey, modifiedFileKey, Timestamp.from(Instant.now()).toString()));
     bucketComponent.upload(originalImage, String.format("original-images/%s.png", originalFileKey));
-    bucketComponent.upload(modifiedImage, String.format("transformed-images/%s.png", modifiedFileKey));
+    bucketComponent.upload(
+        modifiedImage, String.format("transformed-images/%s.png", modifiedFileKey));
     return Optional.of(modifiedImage);
   }
 
@@ -60,7 +62,8 @@ public class ImageService {
           bucketComponent.presign(
               String.format("original-images/%s.png", image.getOriginal()), Duration.ofMinutes(10)),
           bucketComponent.presign(
-              String.format("transformed-images/%s.png", image.getModified()), Duration.ofMinutes(10)));
+              String.format("transformed-images/%s.png", image.getModified()),
+              Duration.ofMinutes(10)));
     }
     return null;
   }
