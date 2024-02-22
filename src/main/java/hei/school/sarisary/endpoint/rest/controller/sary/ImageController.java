@@ -23,7 +23,7 @@ public class ImageController {
       value = "/black-and-white/{id}",
       consumes = {MediaType.IMAGE_PNG_VALUE})
   public ResponseEntity<Object> blackAndWhite(@PathVariable String id, @RequestBody byte[] image) {
-    Optional<File> modifiedImage = service.convertBW(id, image);
+    service.convertBW(id, image);
     return ResponseEntity.ok().build();
   }
 }
