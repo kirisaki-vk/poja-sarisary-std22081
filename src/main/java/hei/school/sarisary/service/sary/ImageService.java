@@ -46,7 +46,7 @@ public class ImageService {
     modifyGraphics.drawImage(originalBuffer, 0, 0, null);
     ImageIO.write(modifiedBuffer, "png", modifiedImage);
     imageRepository.save(
-        new Image(imageId, originalFileKey, modifiedFileKey, Timestamp.from(Instant.now())));
+        new Image(imageId, originalFileKey, modifiedFileKey, Timestamp.from(Instant.now()).toString()));
     bucketComponent.upload(originalImage, String.format("original-images/%s", originalFileKey));
     bucketComponent.upload(modifiedImage, String.format("transformed-images/%s", modifiedFileKey));
     return Optional.of(modifiedImage);

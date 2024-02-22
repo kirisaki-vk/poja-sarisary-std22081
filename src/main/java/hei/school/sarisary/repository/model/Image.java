@@ -17,5 +17,5 @@ public class Image {
   @Id String id;
   String original;
   String modified;
-  Timestamp time;
+  String time;
 }
