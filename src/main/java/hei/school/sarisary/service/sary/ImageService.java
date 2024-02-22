@@ -41,14 +41,14 @@ public class ImageService {
     BufferedImage originalBuffer = ImageIO.read(originalImage);
     BufferedImage modifiedBuffer =
         new BufferedImage(
-            originalBuffer.getWidth(), originalBuffer.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+            originalBuffer.getWidth(), originalBuffer.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
     Graphics modifyGraphics = modifiedBuffer.getGraphics();
     modifyGraphics.drawImage(originalBuffer, 0, 0, null);
     ImageIO.write(modifiedBuffer, "png", modifiedImage);
     imageRepository.save(
         new Image(imageId, originalFileKey, modifiedFileKey, Timestamp.from(Instant.now()).toString()));
-    bucketComponent.upload(originalImage, String.format("original-images/%s", originalFileKey));
-    bucketComponent.upload(modifiedImage, String.format("transformed-images/%s", modifiedFileKey));
+    bucketComponent.upload(originalImage, String.format("original-images/%s.png", originalFileKey));
+    bucketComponent.upload(modifiedImage, String.format("transformed-images/%s.png", modifiedFileKey));
     return Optional.of(modifiedImage);
   }
 
@@ -58,9 +58,9 @@ public class ImageService {
       Image image = imageKeys.get();
       return new ImageLinks(
           bucketComponent.presign(
-              String.format("original-images/%s", image.getOriginal()), Duration.ofMinutes(10)),
+              String.format("original-images/%s.png", image.getOriginal()), Duration.ofMinutes(10)),
           bucketComponent.presign(
-              String.format("transformed-images/%s", image.getModified()), Duration.ofMinutes(10)));
+              String.format("transformed-images/%s.png", image.getModified()), Duration.ofMinutes(10)));
     }
     return null;
   }
