@@ -2,8 +2,6 @@ package hei.school.sarisary.endpoint.rest.controller.sary;
 
 import hei.school.sarisary.endpoint.rest.controller.sary.dto.ImageLinks;
 import hei.school.sarisary.service.sary.ImageService;
-import java.io.File;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
