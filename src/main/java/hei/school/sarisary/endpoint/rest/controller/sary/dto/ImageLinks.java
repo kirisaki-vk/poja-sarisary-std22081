@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ImageLinks {
-  private URL originalUrl;
-  private URL transformedUrl;
+  private URL original_url;
+  private URL transformed_url;
 }
